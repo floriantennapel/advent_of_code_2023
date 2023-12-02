@@ -9,7 +9,7 @@ lineToCubeList = map (Text.unpack . Text.strip) .
                  dropWhile (/= ':')
                  
 parseInt :: String -> Int
-parseInt cubes = read $ takeWhile (`elem` ['0'..'9'] cubes) 
+parseInt cubes = read $ takeWhile (`elem` ['0'..'9']) cubes
 
 validCubeCount :: String -> Bool
 validCubeCount cubes | List.isSuffixOf "red" cubes = parseInt cubes <= 12
