@@ -24,6 +24,5 @@ gamePower game = product $
 
 sumPowers :: String -> Int 
 sumPowers = sum .
-            map (gamePower . 
-                 lineToCubeList) .
+            map (gamePower . lineToCubeList) .
             lines
