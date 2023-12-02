@@ -4,7 +4,9 @@ import qualified Data.List as List
 lineToCubeList :: String -> [String]
 lineToCubeList = map (Text.unpack . Text.strip) . 
                  Text.split (\c -> c == ',' || c == ';') .
-                 Text.pack
+                 Text.pack .
+                 tail . 
+                 dropWhile (/= ':')
 
 parseInt :: String -> Int
 parseInt = read . takeWhile (`elem` ['0'..'9'])
@@ -23,7 +25,5 @@ gamePower game = product $
 sumPowers :: String -> Int 
 sumPowers = sum .
             map (gamePower . 
-                 lineToCubeList .
-                 tail . 
-                 dropWhile (/= ':')) .
+                 lineToCubeList) .
             lines
