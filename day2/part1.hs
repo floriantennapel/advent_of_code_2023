@@ -4,19 +4,22 @@ import qualified Data.List as List
 lineToCubeList :: String -> [String]
 lineToCubeList = map (Text.unpack . Text.strip) . 
                  Text.split (\c -> c == ',' || c == ';') .
-                 Text.pack
+                 Text.pack .
+                 tail .
+                 dropWhile (/= ':')
+                 
+parseInt :: String -> Int
+parseInt cubes = read $ takeWhile (`elem` ['0'..'9'] cubes) 
 
 validCubeCount :: String -> Bool
-validCubeCount cubes | List.isSuffixOf "red" cubes = (read (takeWhile (`elem` ['0'..'9']) cubes) :: Int) <= 12
-                     | List.isSuffixOf "green" cubes = (read (takeWhile (`elem` ['0'..'9']) cubes) :: Int) <= 13 
-                     | List.isSuffixOf "blue" cubes = (read (takeWhile (`elem` ['0'..'9']) cubes) :: Int) <= 14 
+validCubeCount cubes | List.isSuffixOf "red" cubes = parseInt cubes <= 12
+                     | List.isSuffixOf "green" cubes = parseInt cubes <= 13 
+                     | List.isSuffixOf "blue" cubes = parseInt cubes <= 14 
                      | otherwise = True --should not happen 
 
 validLines :: String -> [Bool] 
 validLines = map (all validCubeCount .
-                  lineToCubeList . 
-                  tail . 
-                  dropWhile (/= ':')) . 
+                  lineToCubeList) . 
              lines
 
 sumValidLines :: String -> Int
