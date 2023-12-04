@@ -4,7 +4,7 @@ import Data.Text (replace, pack, unpack)
 --a bit verbose, but it works very well
 calibrate :: String -> Int
 calibrate = sum .
-            map (\cs -> read ((head cs) : [last cs]) :: Int) .
+            map (\cs -> read (head cs) : [last cs]) .
             map (filter isDigit) .
             lines .
             unpack .
