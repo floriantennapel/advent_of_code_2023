@@ -14,7 +14,7 @@ parseInt cubes = read $ takeWhile (`elem` ['0'..'9']) cubes
 validCubeCount :: String -> Bool
 validCubeCount cubes | List.isSuffixOf "red" cubes = parseInt cubes <= 12
                      | List.isSuffixOf "green" cubes = parseInt cubes <= 13 
-                     | otherwise = parseInt cubes <= 14 
+                     | List.isSuffixOf "blue" = parseInt cubes <= 14 
                      | otherwise = True --should not happen 
 
 validLines :: String -> [Bool] 
