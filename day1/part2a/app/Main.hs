@@ -2,8 +2,8 @@ import Data.List.Utils (replace)
 
 main :: IO ()
 main = do
-    fil <- readFile "calibration.txt"
-    putStrLn $ show $ calibrate fil
+    file <- readFile "calibration.txt"
+    putStrLn $ show $ calibrate file
 
 calibrate :: String -> Int 
 calibrate = sum .
