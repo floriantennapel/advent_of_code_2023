@@ -1,59 +1,49 @@
-import Data.List
+import Data.Maybe (isJust, fromMaybe)
+import Data.Char (isDigit)
 
---safe versions of !! and tail
+--safe version of !!
 get :: Int -> [a] -> Maybe a
-get i xs | i >= length xs  || i < 0 = Nothing
-         | otherwise = Just $ xs !! i 
-
-safeTail :: [a] -> [a]
-safeTail []     = []
-safeTail (x:xs) = xs 
-
-
-
+get i xs | i >= length xs || i < 0 = Nothing
+         | otherwise = Just $ xs !! i
 
 --input is a string where the first element is known to be a numeric value
-readInt :: String -> (Int, Int) --(value, number of digits)
-readInt line = (read number, length number) 
-    where 
-        number = takeWhile(`elem` ['0'..'9']) line 
-
-getSymbolIndices :: String -> [Int] 
-getSymbolIndices = findIndices (`notElem` (['0'..'9'] ++ ['.', '\n']))
-
---This is so messy, but it works...
-readLine :: Int -> Maybe String -> Maybe String -> Maybe Char -> String -> [Int]
-readLine _ _ _ _ [] = []
-readLine i over under prev (c:cs)  
-    | cs /= [] && elem c ['0'..'9'] = 
-        let num = readInt (c:cs) 
-            (val, len) = num
-            i_1 = i + len
-            surrounding = case (prev, get (len-1) cs) of
-                            (Just p, Just s) -> [p, s]
-                            (Nothing, Just s) -> [s]
-                            (Just p, Nothing) -> [p]
-                            (_, _) -> [] 
-            ifAdjacent | any (`elem` symbolIndices) [i-1..i_1] || 
-                         any (`notElem` (['0'..'9'] ++ ['.', '\n'])) surrounding 
-                         = [val]
-                       | otherwise = [] 
-            next = drop (len-1) cs
-        in ifAdjacent ++ (readLine (i_1+1) over under (Just $ head next) (safeTail next)) 
-    | otherwise = readLine (i+1) over under (Just c) cs
-
-    where symbolIndices = case (over, under) of
-                            (Just o, Just u) -> getSymbolIndices o ++ (getSymbolIndices u) 
-                            (Nothing, Just u) -> getSymbolIndices u
-                            (Just o, Nothing) -> getSymbolIndices o
-                            (_, _) -> []
-                                      
-sumLines :: String -> Int
-sumLines input = sum $
-                 concat $
-                 map (\(i, line) -> readLine 0 (get (i-1) lineList) (get (i+1) lineList) Nothing line) $
-                 zip [0..] lineList
+parseInt :: String -> (Int, Int) --(value, number of digits)
+parseInt line = (read number, length number)
     where
-        lineList = lines input 
+        number = takeWhile isDigit line
+
+--returns a list of all elements surrounding given position of number
+getAdjacent :: Int -> Int -> Int -> [[Char]] -> [Char]
+getAdjacent row col len ref =
+    concat $
+    map (take takeAmount . drop dropAmount . fromMaybe []) $
+    filter (isJust) $
+    get (row-1) ref : get row ref : [get (row+1) ref]
+    where
+        (takeAmount, dropAmount) | col == 0  = (len+1, 0)
+                                 | otherwise = (len+2, col-1)
 
 
+
+
+sumParts :: String -> Int
+sumParts input = sumParts' 0 0 lineList lineList
+    where lineList = lines input
+
+sumParts' :: Int -> Int -> [String] -> [String] -> Int
+sumParts' _ _ [] _ = 0
+sumParts' row col ((c:cs):ls) ref
+    | isDigit c = if isPart $ getAdjacent row col len ref
+                    then val + next
+                    else next
+    | otherwise = next
+
+    where
+        (val, len) = parseInt (c:cs)
+        isPart = any (`notElem` (['0'..'9'] ++ ['.', '\n']))
+        next | cs == [] || len >= length cs =
+                sumParts' (row+1) 0 ls ref
+             | isDigit c =
+                sumParts' row (col+len) ((drop len (c:cs)):ls) ref
+             | otherwise =
+                sumParts' row (col+1) (cs:ls) ref
