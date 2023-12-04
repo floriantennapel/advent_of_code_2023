@@ -14,10 +14,10 @@ calibrate = sum .
 
 wordsToInts = replace "one" "o1e" .
               replace "two" "t2o" .
-              replace "three" "th3ee" .
-              replace "four" "fo4r" .
-              replace "five" "fi5e" .
-              replace "six" "s6x" .
-              replace "seven" "se7en" .
-              replace "eight" "ei8ht" .
-              replace "nine" "ni9e"
+              replace "three" "t3e" .
+              replace "four" "4" .
+              replace "five" "5e" .
+              replace "six" "6" .
+              replace "seven" "7n" .
+              replace "eight" "e8t" .
+              replace "nine" "n9e"
