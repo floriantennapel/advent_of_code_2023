@@ -1,9 +1,7 @@
---matches per card -> current number of cards per card -> total number of cards
 sumCards :: [Int] -> [Int] -> Int 
 sumCards [] []         = 0
 sumCards (m:ms) (n:ns) = n + sumCards ms (addN m n ns) 
     where
-        addN :: Int -> Int -> [Int] -> [Int]
         addN nFirsts addAmount cardCount =
             map (+ addAmount) (take nFirsts cardCount) ++
             drop nFirsts cardCount   
