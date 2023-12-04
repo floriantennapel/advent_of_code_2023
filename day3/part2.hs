@@ -1,22 +1,21 @@
 import Data.Maybe (isJust, fromMaybe)
 import Data.List (nub)
+import Data.Char (isDigit)
 
 --safe version of !!
 get :: Int -> [a] -> Maybe a
 get i xs | i >= length xs || i < 0 = Nothing
          | otherwise = Just $ xs !! i
-
-
-
-
-
-
-
+         
 --input is a string where the first element is known to be a numeric value
 parseInt :: String -> (Int, Int) --(value, number of digits)
 parseInt line = (read number, length number) 
     where 
         number = takeWhile(`elem` ['0'..'9']) line
+
+
+
+        
 
 -- lists all numbers on line, including starting index
 -- "..58" -> [(Nothing, 0), (Nothing, 1), (Just 58, 2), (Just 58, 2)]
@@ -25,7 +24,7 @@ numsOnLine = numsOnLine' 0
 
 numsOnLine' :: Int -> String -> [(Maybe Int, Int)]
 numsOnLine' _ []     = []
-numsOnLine' i (c:cs) | elem c ['0'..'9'] = [(Just val, i) | _ <- [1..len]] ++
+numsOnLine' i (c:cs) | isDigit c = [(Just val, i) | _ <- [1..len]] ++
                        (numsOnLine' (i+len) (drop len (c:cs)))
                      | otherwise = (Nothing, i) : (numsOnLine' (i+1) cs)
     where
@@ -66,6 +65,7 @@ sumGears' _ _ [] _ = 0
 sumGears' row col ((c:cs):ls) nums 
     | c == '*' = (gearProduct $ getAdjacent row col nums) + next 
     | otherwise = next
+    
     where
         next = case cs of
                  [] -> sumGears' (row+1) 0 ls nums 
