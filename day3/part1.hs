@@ -19,6 +19,7 @@ getAdjacent row col len ref =
     map (take takeAmount . drop dropAmount . fromMaybe []) $
     filter (isJust) $
     get (row-1) ref : get row ref : [get (row+1) ref]
+    
     where
         (takeAmount, dropAmount) | col == 0  = (len+1, 0)
                                  | otherwise = (len+2, col-1)
