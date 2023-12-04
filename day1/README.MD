@@ -1,1 +1,1 @@
-part2a contains an alternative solution that relies on external libraries using cabal
+part2a contains a better solution to part2 using replace from Data.List.Utils
