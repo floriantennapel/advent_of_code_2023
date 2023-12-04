@@ -1,3 +1,6 @@
+--takes a list of matches per card, and a list of the current
+--number of cards per card, then recursively adds the number of cards to
+--the next m cards
 sumCards :: [Int] -> [Int] -> Int 
 sumCards [] []         = 0
 sumCards (m:ms) (n:ns) = n + sumCards ms (addN m n ns) 
