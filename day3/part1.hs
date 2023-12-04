@@ -12,7 +12,7 @@ parseInt line = (read number, length number)
     where
         number = takeWhile isDigit line
 
---returns a list of all elements surrounding given position of number
+--returns a list of all elements surrounding length of elements starting from a given point
 getAdjacent :: Int -> Int -> Int -> [[Char]] -> [Char]
 getAdjacent row col len ref =
     concat $
