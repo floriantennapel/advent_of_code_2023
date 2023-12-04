@@ -27,9 +27,8 @@ readLine _ _ _ _ [] = []
 readLine i over under prev (c:cs)  
     | cs /= [] && elem c ['0'..'9'] = 
         let num = readInt (c:cs) 
-            val = fst num
-            len = snd num
-            i_1 = i + len 
+            (val, len) = num
+            i_1 = i + len
             surrounding = case (prev, get (len-1) cs) of
                             (Just p, Just s) -> [p, s]
                             (Nothing, Just s) -> [s]
