@@ -1,4 +1,5 @@
 import Data.List.Utils (replace)
+import Data.Char (isDigit)
 
 main :: IO ()
 main = do
@@ -8,7 +9,7 @@ main = do
 calibrate :: String -> Int 
 calibrate = sum .
             map (\cs -> read ((head cs) : [last cs]) :: Int) .
-            map (filter (`elem` ['0'..'9'])) .
+            map (filter isDigit) .
             lines . 
             wordsToInts
 
