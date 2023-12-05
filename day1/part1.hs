@@ -3,7 +3,7 @@ import Data.Char (isDigit)
 main :: IO ()
 main = do
     input <- readFile "inputData.txt"
-    puStrLn $ show $ calibrate input
+    putStrLn $ show $ calibrate input
 
 calibrate :: String -> Int 
 calibrate = sum .
