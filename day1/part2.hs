@@ -1,6 +1,11 @@
 import Data.Char (isDigit)
 import Data.Text (replace, pack, unpack)
 
+main :: IO ()
+main = do
+    input <- readFile "inputData.txt"
+    putStrLn $ show $ calibrate input
+
 --a bit verbose, but it works very well
 calibrate :: String -> Int
 calibrate = sum .
