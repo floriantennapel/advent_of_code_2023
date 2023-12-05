@@ -1,0 +1,47 @@
+import Data.List (isSuffixOf)
+
+main :: IO ()
+main = do
+    input <- readFile "inputData.txt"
+    let ls = lines input
+    let mappings = getAllMappings 7 ls
+    let seeds = getSeeds $ parseSeedLine $ ls !! 0
+    putStrLn $ show $ length seeds
+    let minLocation = minimum $ map (seedToLocation mappings) $ seeds
+    putStrLn $ show minLocation
+        
+
+parseSeedLine :: String -> [Int]
+parseSeedLine = map read . 
+                words . 
+                tail . 
+                dropWhile (/= ':')
+
+getSeeds :: [Int] -> [Int]
+getSeeds [] = []
+getSeeds (fst:rng:ns) = take rng [fst..] ++ getSeeds ns
+
+parseMapping :: [String] -> [[Int]]
+parseMapping = map (map read . words) .
+               takeWhile (/= "") .
+               tail .
+               dropWhile (not . isSuffixOf "map:")
+
+getAllMappings :: Int -> [String] -> [[[Int]]]
+getAllMappings 0 _  = []
+getAllMappings n ls = parseMapping ls : (getAllMappings (n-1) next)
+    where
+        next = tail $ 
+               dropWhile (not . isSuffixOf "map:") $
+               ls
+
+getVal :: [[Int]] -> Int -> Int
+getVal [] k = k
+getVal ((dst:src:ran:[]):ls) k | diff >= 0 && diff < ran = dst + diff 
+                               | otherwise = getVal ls k
+    where
+        diff = k - src
+
+seedToLocation :: [[[Int]]] -> Int -> Int
+seedToLocation (m:[]) k = getVal m k
+seedToLocation (m:ms) k = seedToLocation ms (getVal m k) 
