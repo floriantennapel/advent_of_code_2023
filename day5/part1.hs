@@ -7,13 +7,9 @@ main :: IO ()
 main = do
     args <- getArgs
     input <- readFile $ args !! 0
-    putStrLn "read input"
     let ls = lines input
-    putStrLn "turned into lines"
     let seeds = parseSeeds $ ls !! 0
-    putStrLn "got seeds"
     let maps = getMaps ls 
-    putStrLn "made maps"
     putStrLn $ show $ lowestLocation maps seeds
 
 lowestLocation :: [Map Int Int] -> [Int] -> Int
