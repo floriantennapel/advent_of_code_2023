@@ -4,6 +4,11 @@ import Data.Char (isDigit)
 
 type IndexedNum = (Maybe Int, Int)
 
+main :: IO ()
+main = do
+    input <- readFile "inputData.txt"
+    putStrLn $ show $ sumGears input
+
 --safe version of !!
 get :: Int -> [a] -> Maybe a
 get i xs | i >= length xs || i < 0 = Nothing
@@ -14,11 +19,7 @@ parseInt :: String -> (Int, Int) --(value, number of digits)
 parseInt line = (read number, length number) 
     where 
         number = takeWhile isDigit line
-
-
-
         
-
 -- lists all numbers on line, including starting index
 -- "..58" -> [(Nothing, 0), (Nothing, 1), (Just 58, 2), (Just 58, 2)]
 numsOnLine :: String -> [IndexedNum]
@@ -50,12 +51,7 @@ gearProduct =  gearNum .
     where
         gearNum surrounding | length surrounding == 2 = product surrounding
                             | otherwise = 0
-
-
-
-
-
-
+                            
 --given an engine schematic, returns the sum of all gear-ratios
 sumGears :: String -> Int
 sumGears input = sumGears' 0 0 (lines input) nums
