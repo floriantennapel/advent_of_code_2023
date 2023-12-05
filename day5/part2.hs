@@ -6,7 +6,6 @@ main = do
     let ls = lines input
     let mappings = getAllMappings 7 ls
     let seeds = getSeeds $ parseSeedLine $ ls !! 0
-    putStrLn $ show $ length seeds
     let minLocation = minimum $ map (seedToLocation mappings) $ seeds
     putStrLn $ show minLocation
         
