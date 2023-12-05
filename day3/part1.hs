@@ -1,6 +1,11 @@
 import Data.Maybe (isJust, fromMaybe)
 import Data.Char (isDigit)
 
+main :: IO ()
+main = do
+    input <- readFile "inputData.txt"
+    putStrLn $ show $ sumParts input
+
 --safe version of !!
 get :: Int -> [a] -> Maybe a
 get i xs | i >= length xs || i < 0 = Nothing
@@ -23,9 +28,6 @@ getAdjacent row col len ref =
     where
         (takeAmount, dropAmount) | col == 0  = (len+1, 0)
                                  | otherwise = (len+2, col-1)
-
-
-
 
 sumParts :: String -> Int
 sumParts input = sumParts' 0 0 lineList lineList
