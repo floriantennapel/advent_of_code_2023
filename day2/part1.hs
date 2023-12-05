@@ -1,6 +1,11 @@
 import qualified Data.Text as Text 
 import qualified Data.List as List
 
+main :: IO ()
+main = do
+    input <- readFile "inputData.txt"
+    putStrLn $ show $ sumValidLines input
+
 lineToCubeList :: String -> [String]
 lineToCubeList = map (Text.unpack . Text.strip) . 
                  Text.split (\c -> c == ',' || c == ';') .
