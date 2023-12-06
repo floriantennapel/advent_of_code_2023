@@ -1,0 +1,1 @@
+My solution relies on the fact that we are finding the two numbers that add up to the time and multiply to the distance i.e. solving the quadratic equation. Once we have this we simply count the numbr of integers inbetween and this is the count of holding times that will give a better result. I initially didn't program this, but just found the answer using a pocket calculator.
