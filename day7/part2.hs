@@ -26,7 +26,7 @@ sortHands = concat .
 compareHands :: HandRank -> HandRank -> Ordering
 compareHands (as,_) (bs,_) = compare (toNums as) (toNums bs)
     where
-        toNums = map (fromMaybe 50 . flip elemIndex cards)
+        toNums = map (fromMaybe 0 . flip elemIndex cards)
         cards = "J23456789TQKA"
 
 countCards :: [Char] -> [Int] 
