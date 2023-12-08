@@ -34,7 +34,7 @@ countCards cs
     | all (=='J') cs = replicate 5 5
     | elem 'J' cs = replicate (maxNoJ+countJ) (maxNoJ+countJ) ++ 
                     drop (maxNoJ) noJCount
-    | otherwise = tail $ scanl (\_ c -> length $ filter (==c) cs) 0 cs
+    | otherwise = map (\c -> length $ filter (==c) cs) cs
     
     where
         countJ = length $ filter (=='J') cs
