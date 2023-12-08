@@ -30,7 +30,7 @@ compareHands (as,_) (bs,_) = compare (toNums as) (toNums bs)
         cards = "23456789TJQKA"
 
 countCards :: [Char] -> [Int] 
-countCards cs = tail $ scanl (\_ c -> length $ filter (==c) cs) 0 cs
+countCards cs = map (\c -> length $ filter (==c) cs) cs
 
 sortCategories :: [HandRank] -> [[HandRank]] 
 sortCategories hs = filter high hs : 
