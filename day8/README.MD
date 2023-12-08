@@ -1,1 +1,1 @@
-Sadly my first initial solution to part2 used more memory than I have, so I actually found the solution using part2a.
+Part2a is the actual solution I used, part2 was my initial solution that did not work.
