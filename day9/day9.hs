@@ -3,6 +3,7 @@ main = do
     input <- readFile "inputData.txt"
     let ls = parseLines input 
     putStrLn $ show $ sum $ map getNext ls
+    putStrLn $ show $ sum $ map (getNext . reverse) ls
 
 parseLines :: String -> [[Integer]]
 parseLines = map (map read . words) . lines
