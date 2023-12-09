@@ -15,6 +15,6 @@ getNext' :: (Eq a, Num a) => [a] -> [a]
 getNext' (n:ns) | all (==n) ns = n:n:ns 
                 | otherwise = n:(ns ++ [next])  
     where
-        diffs = map (\(a,b) -> b-a) $ zip (n:ns) ns 
+        diffs = zipWith (-) ns (n:ns)
         next = (last (n:ns)) + (last $ getNext' diffs) 
 
