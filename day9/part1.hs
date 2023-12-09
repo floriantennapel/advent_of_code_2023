@@ -1,0 +1,19 @@
+main :: IO ()
+main = do
+    input <- readFile "inputData.txt"
+    let ls = parseLines input 
+    putStrLn $ show $ sum $ map getNext ls
+
+parseLines :: String -> [[Integer]]
+parseLines = map (map read . words) . lines
+
+getNext :: (Eq a, Num a) => [a] -> a
+getNext = last . getNext'
+
+getNext' :: (Eq a, Num a) => [a] -> [a]
+getNext' (n:ns) | all (==n) ns = n:n:ns 
+                | otherwise = n:(ns ++ [next])  
+    where
+        diffs = map (\(a,b) -> b-a) $ zip (n:ns) ns 
+        next = (last (n:ns)) + (last $ getNext' diffs) 
+
