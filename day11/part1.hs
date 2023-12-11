@@ -8,12 +8,12 @@ main = do
                       (sumDiffs $ snd gals)
 
 getGalaxies :: [[Char]] -> ([Integer], [Integer])
-getGalaxies = (\poss -> ((map fst poss),(sort $ map snd poss))) $
-              map (\(_,i,j) -> (i,j)) $
-              filter (\(x,_,_) -> x == '#') $
-              concat $
-              [[(x,i,j) | (x, j) <- zip cs (getRowIndices 0 $ transpose css)] | 
-               (cs, i) <- zip css (getRowIndices 0 css)]
+getGalaxies css = (\poss -> ((map fst poss),(sort $ map snd poss))) $
+                  map (\(_,i,j) -> (i,j)) $
+                  filter (\(x,_,_) -> x == '#') $
+                  concat $
+                  [[(x,i,j) | (x, j) <- zip cs (getRowIndices 0 $ transpose css)] | 
+                   (cs, i) <- zip css (getRowIndices 0 css)]
 
 getRowIndices :: Integer -> [[Char]] -> [Integer] 
 getRowIndices _ []  = []
