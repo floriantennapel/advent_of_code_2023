@@ -38,6 +38,10 @@ public class RollBoard {
             for (String dir : dirs) {
                 fullRoll(dir);
             }
+
+            // looking for cyclic patterns
+            // after stabilizing, every number is repeated after 42 cycles
+            // System.out.println(i+1 + " " + getLoad());
         } 
     }
 
