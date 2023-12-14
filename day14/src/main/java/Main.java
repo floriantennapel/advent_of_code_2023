@@ -22,8 +22,11 @@ public class Main {
         // System.out.println(board.getLoad());
 
         // part2
-        board.runCycle(1000); // just a shot in the dark, it did work though :)
 
+        // after first stabilizing the pattern repeats with a cycle length of 42
+        // after some quick checks, 118 is the first number in this sequence, followed by 160, 202, 244...
+        // 34 and 76 are too small, and the cycle is not yet stable
+        board.runCycle(118); // 118 = 1000000000 - 23809521*42
         System.out.println(board.getLoad());
     }
 }
