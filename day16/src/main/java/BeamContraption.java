@@ -59,68 +59,33 @@ public class BeamContraption {
             if (!(energized[b.i][b.j] == null) && energized[b.i][b.j].equals(b.dir)) {
                 break;
             }
-
             energized[b.i][b.j] = b.dir;
-
-            switch (grid[b.i][b.j]) {
-                case '.':
-                    if (!canMove(b)) return;
-                    b.move();
-                    break;
-                case '|':
-                    if (b.dir.equals("East") || b.dir.equals("West")) {
-                        traverse(new Beam("North", b.i, b.j));
-
-                        b.dir = "South";
-                    }
-                    if (!canMove(b)) return;
-                    b.move();
-                    break;
-                case '-':
-                    if (b.dir.equals("North") || b.dir.equals("South")) {
-                        traverse(new Beam("West", b.i, b.j));
-
-                        b.dir = "East";
-                    }
-                    if (!canMove(b)) return;
-                    b.move();
-                    break;
-                case '/':
-                    switch (b.dir) {
-                        case "North":
-                            b.dir = "East";
-                            break;
-                        case "South":
-                            b.dir = "West";
-                            break;
-                        case "East":
-                            b.dir = "North";
-                            break;
-                        case "West":
-                            b.dir = "South";
-                            break;
-                    }
-                    if (!canMove(b)) return;
-                    b.move();
-                    break;
-                case '\\':
-                    switch (b.dir) {
-                        case "North":
-                            b.dir = "West";
-                            break;
-                        case "South":
-                            b.dir = "East";
-                            break;
-                        case "East":
-                            b.dir = "South";
-                            break;
-                        case "West":
-                            b.dir = "North";
-                            break;
-                    }
-                    if (!canMove(b)) return;
-                    b.move();
+            
+            // changing direction for next move
+            if (grid[b.i][b.j] == '|' && (b.dir.equals("East") || b.dir.equals("West"))) {
+                traverse(new Beam("North", b.i, b.j));
+                b.dir = "South";
+            } else if (grid[b.i][b.j] == '-' && (b.dir.equals("North") || b.dir.equals("South"))) {
+                traverse(new Beam("West", b.i, b.j));
+                b.dir = "East";
+            } else if (grid[b.i][b.j] == '/') {
+                switch (b.dir) {
+                    case "North" -> b.dir = "East";
+                    case "South" -> b.dir = "West";
+                    case "East" -> b.dir = "North";
+                    case "West" -> b.dir = "South";
+                }
+            } else if (grid[b.i][b.j] == '\\') {
+                switch (b.dir) {
+                    case "North" -> b.dir = "West";
+                    case "South" -> b.dir = "East";
+                    case "East" -> b.dir = "South";
+                    case "West" -> b.dir = "North";
+                }
             }
+            
+            if (!canMove(b)) break;
+            b.move();
         }
     }
 
