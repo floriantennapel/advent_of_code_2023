@@ -60,6 +60,16 @@ public class BeamContraption {
                 break;
             }
             energized[b.i][b.j] = b.dir;
+
+            // animation, I only got this to work in linux
+            /* System.out.print("\033[H\033[2J");
+            System.out.println(this);
+
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } */
             
             // changing direction for next move
             if (grid[b.i][b.j] == '|' && (b.dir.equals("East") || b.dir.equals("West"))) {
