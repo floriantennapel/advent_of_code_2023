@@ -8,13 +8,13 @@ public class Part2 {
             "five", 5, "six", 6, "seven", 7, "eight", 8, "nine", 9
     ));
 
-    public static int sumLines(List<String> lines) throws RuntimeException {
+    public static int sumLines(List<String> lines) {
         return lines.stream().
                 map(Part2::calibrationValue).
                 reduce(0, Integer::sum);
     }
 
-    private static int calibrationValue(String line) throws RuntimeException {
+    private static int calibrationValue(String line) {
         int first = getFirstOrLastNum(line, true);
         int last = getFirstOrLastNum(line, false);
 
