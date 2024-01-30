@@ -7,10 +7,6 @@ public class Part1 {
                 reduce(0, Integer::sum);
     }
 
-    /**
-     * @param line
-     * @return calibration value of line, -1 on failure
-     */
     private static int calibrationValue(String line) throws RuntimeException {
         String reversed = (new StringBuilder(line)).reverse().toString();
         char first = getFirstNum(line);
