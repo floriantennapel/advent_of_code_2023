@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-  public static void main(String[] args) throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader("input.txt"));
-    List<String> lines = new ArrayList<>(reader.lines().toList());
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader("input.txt"));
+        List<String> lines = new ArrayList<>(reader.lines().toList());
 
-    System.out.println(Part1.sumLines(lines));
-    System.out.println(Part2.sumLines(lines));
-  }
+        System.out.println(Part1.sumLines(lines));
+        System.out.println(Part2.sumLines(lines));
+    }
 }

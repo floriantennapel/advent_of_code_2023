@@ -1,5 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
-import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -12,7 +14,6 @@ public class Main {
         part1(lines);
         part2(lines);
     }
-
 
 
     static void part1(List<String> lines) {
@@ -42,8 +43,8 @@ public class Main {
 
         return (
                 highestCubeCounts.get("red") <= 12 &&
-                highestCubeCounts.get("green") <= 13 &&
-                highestCubeCounts.get("blue") <= 14
+                        highestCubeCounts.get("green") <= 13 &&
+                        highestCubeCounts.get("blue") <= 14
         );
     }
 
