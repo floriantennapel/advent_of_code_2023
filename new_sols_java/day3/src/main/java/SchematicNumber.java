@@ -10,6 +10,6 @@ public class SchematicNumber {
 
     @Override
     public String toString() {
-        return String.format("{%d: (%d, [%d:%d])}", n, row, start_col, end_col);
+        return String.format("%d", n);
     }
 }

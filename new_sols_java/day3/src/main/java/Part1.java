@@ -1,13 +1,18 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Part1 {
 
-    static long sumParts(List<SchematicNumber> numbers) {
+    static long sumParts() {
+        List<SchematicNumber> read = new ArrayList<>();
         long sum = 0;
 
-        for (SchematicNumber sn : numbers) {
-            if (isPart(sn)) {
-                sum += sn.n;
+        for (List<SchematicNumber> row : Main.numbers) {
+            for (SchematicNumber sn : row) {
+                if (sn != null && isPart(sn) && !read.contains(sn)) {
+                    sum += sn.n;
+                    read.add(sn);
+                }
             }
         }
 
