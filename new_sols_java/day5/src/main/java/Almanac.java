@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Almanac {
@@ -20,18 +22,24 @@ public class Almanac {
     }
 
     public long part2() {
-        long lowest = Long.MAX_VALUE;
-
+        List<List<Long>> seedPairs = new ArrayList<>();
         for (int i = 0; i < seeds.size(); i += 2) {
-            long start = seeds.get(i);
-            long range = seeds.get(i+1);
+            List<Long> pair = Arrays.asList(seeds.get(i), seeds.get(i+1));
+            seedPairs.add(pair);
+        }
+
+        return seedPairs.parallelStream().mapToLong(pair -> {
+            long start = pair.get(0);
+            long range = pair.get(1);
+
+            long lowest = Long.MAX_VALUE;
 
             for (long seed = start; seed <= start + range; seed++) {
                 lowest = Math.min(lowest, getLocation(seed));
             }
-        }
 
-        return lowest;
+            return lowest;
+        }).min().getAsLong();
     }
 
     private long getLocation(long seed) {
