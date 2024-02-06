@@ -19,6 +19,21 @@ public class Almanac {
         return lowest;
     }
 
+    public long part2() {
+        long lowest = Long.MAX_VALUE;
+
+        for (int i = 0; i < seeds.size(); i += 2) {
+            long start = seeds.get(i);
+            long range = seeds.get(i+1);
+
+            for (long seed = start; seed <= start + range; seed++) {
+                lowest = Math.min(lowest, getLocation(seed));
+            }
+        }
+
+        return lowest;
+    }
+
     private long getLocation(long seed) {
         long current = seed;
 

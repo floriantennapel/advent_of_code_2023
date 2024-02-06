@@ -20,6 +20,7 @@ public class Main {
         Almanac almanac = new Almanac(seeds, mappings);
 
         System.out.println(almanac.part1());
+        System.out.println(almanac.part2());
     }
 
     static List<Long> parseFirstLine(String line) {
