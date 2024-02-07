@@ -6,9 +6,9 @@ import java.util.List;
 *
 * The formula for the distance d(t) given time t and total race time T is:
 *   d(t) = t * (T - t) = -t² + Tt
-* Given any record R we can find the hold time of that record using the quadratic formula:
+* Given any record R we can find the hold time of that record using the quadratic equation:
 *   -T +/- sqrt(T² - 4R) / 2
-* and the number of record-breaking times is simply the all digits in-between these two answers.
+* The number of record-breaking times is simply the all digits in-between these two answers.
  */
 
 public class Main {
