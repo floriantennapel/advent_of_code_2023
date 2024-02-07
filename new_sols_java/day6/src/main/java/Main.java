@@ -2,6 +2,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/* EXPLANATION OF SOLUTION
+*
+* The formula for the distance d(t) given time t and total race time T is:
+*   d(t) = t * (T - t) = -t² + Tt
+* Given any record R we can find the hold time of that record using the quadratic formula:
+*   -T +/- sqrt(T² - 4R) / 2
+* and the number of record-breaking times is simply the all digits in-between these two answers.
+ */
+
 public class Main {
     static final List<Integer> time = new ArrayList<>(
             Arrays.asList(49, 78, 79, 80)
@@ -51,6 +60,8 @@ public class Main {
 
         long firstHalf = time / 2 - firstOver;
 
-        return (time % 2 == 0) ? firstHalf * 2 + 1 : (firstHalf + 1) * 2;
+        return (time % 2 == 0)
+                ? firstHalf * 2 + 1
+                : (firstHalf + 1) * 2;
     }
 }
