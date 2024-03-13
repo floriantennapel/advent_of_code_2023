@@ -154,15 +154,14 @@ public class Day17 {
 
     Block current = end;
     while (current != null) {
-      /*
       char c = switch(current.dir()) {
         case N -> '^';
         case S -> 'V';
         case E -> '>';
         case W -> '<';
-      };*/
+      };
 
-      path[current.pos().row()][current.pos().col()] = Character.forDigit(current.dirCount(), 10);
+      path[current.pos().row()][current.pos().col()] = c;
 
       current = current.prev();
     }
