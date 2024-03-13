@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-record Block(Pos pos, int heatLoss, int dirCount, Dir dir) {
+record Block(Pos pos, int heatLoss, int dirCount, Dir dir, Block prev) {
   @Override
   public boolean equals(Object obj) {
     if (obj == null) {
