@@ -38,7 +38,8 @@ public class Day17 {
           pos,
           city[pos.row()][pos.col()],
           1,
-          dir
+          dir,
+          null
       ));
     }
 
@@ -51,6 +52,7 @@ public class Day17 {
         throw new RuntimeException("Could not find endpoint");
       }
       if (current.pos().equals(new Pos(rows - 1, cols - 1))) {
+        printPath(current);
         return current.heatLoss();
       }
 
@@ -66,6 +68,8 @@ public class Day17 {
       Pos pos = from.pos();
       if (isValidPos(pos.add(Dir.getDeltaPos(fromDir)))) {
         return new HashSet<>(Set.of(newBlock(from, from.dir())));
+      } else {
+        return new HashSet<>();
       }
     }
 
@@ -133,7 +137,38 @@ public class Day17 {
         to,
         from.heatLoss() + city[to.row()][to.col()],
         dir == from.dir() ? from.dirCount() + 1 : 1,
-        dir
+        dir,
+        from
     );
+  }
+
+  private void printPath(Block end) {
+    char[][] path = new char[rows][cols];
+
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        //path[i][j] = Character.forDigit(city[i][j], 10);
+        path[i][j] = '.';
+      }
+    }
+
+    Block current = end;
+    while (current != null) {
+      /*
+      char c = switch(current.dir()) {
+        case N -> '^';
+        case S -> 'V';
+        case E -> '>';
+        case W -> '<';
+      };*/
+
+      path[current.pos().row()][current.pos().col()] = Character.forDigit(current.dirCount(), 10);
+
+      current = current.prev();
+    }
+
+    for (char[] line : path) {
+      System.out.println(new String(line));
+    }
   }
 }
