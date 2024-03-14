@@ -9,8 +9,8 @@ city = [[int(c) for c in line.strip()] for line in file.readlines()]
 rows = len(city)
 cols = len(city[0])
 
-min_moves = 0
-max_moves = 3
+min_moves = 4
+max_moves = 10
 
 class Crucible:
     def __init__(self, prev, to_pos):
@@ -34,7 +34,7 @@ class Crucible:
             case (_, -1):
                 self.dir = 'w'
         
-        self.move_count = prev.move_count + 1 if self.dir == prev.dir else 1
+        self.move_count = prev.move_count + 1 if self.dir == prev.dir else 1        
         self.cost = prev.cost + city[to_pos[0]][to_pos[1]]
 
     def __lt__(self, other):
@@ -75,13 +75,16 @@ def valid_pos(pos):
     return r >= 0 and c >= 0 and r < rows and c < rows
 
 
+visited = dict()
+
 def get_next(crucible):
     ret = set()
     if (crucible.move_count < max_moves):
         next_pos = move(crucible.pos, crucible.dir)
         if valid_pos(next_pos):
             next = Crucible(crucible, next_pos)
-            if (next.pos, next.dir, next.move_count) not in visited:
+            visit_val = visited.get((next.pos, next.dir), -1)
+            if  visit_val == -1 or next.move_count > visit_val:
                 ret.add(next)
 
     if (crucible.move_count >= min_moves):
@@ -89,13 +92,15 @@ def get_next(crucible):
             next_pos = move(crucible.pos, dir)
             if valid_pos(next_pos):
                 next = Crucible(crucible, next_pos)
-                if (next.pos, next.dir, next.move_count) not in visited:
+                visit_val = visited.get((next.pos, next.dir), -1)
+                if  visit_val == -1 or next.move_count < visit_val:
                     ret.add(next)
     
     return ret
 
 
 start_time = time()
+# only used to check progress
 queue_dist = 0
 ###################################
 # Graph traversal
@@ -104,20 +109,22 @@ start = Crucible(None, (0, 0))
 queue = []
 heappush(queue, Crucible(start, (0, 1)))
 heappush(queue, Crucible(start, (1, 0)))
-
-visited = set()
+results = set()
 
 while True:
     current = heappop(queue)
+
     if current.cost > queue_dist:
+        print(current.cost)
         queue_dist = current.cost
-        print(queue_dist)
-    visited.add((current.pos, current.dir, current.move_count))
+
+    visited[(current.pos, current.dir)] = current.move_count
 
     if current.pos == (rows-1, cols-1):
         print(current.cost)
-        print("took %.2f seconds" %(time() - start_time))
         break
 
     for crucible in get_next(current):
         heappush(queue, crucible)
+
+print("took %.2f seconds" %(time() - start_time))
